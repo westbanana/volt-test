@@ -15,7 +15,6 @@ import { EditTodoProps } from '../TodoList/model/todo-list.type.ts'
 import { toggleMode } from './model/slice/todo-creator-slice.ts'
 import { getTodos } from '../TodoList/model/selectors/get-todos.ts'
 import { toast } from 'react-hot-toast'
-import { classNames } from '../../lib/classNames/classnames.ts'
 
 const TodoCreator:FC = () => {
   const dispatch = useDispatch()
