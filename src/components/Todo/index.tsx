@@ -1,5 +1,5 @@
-import { FC } from 'react'
-import { ListItem, Typography } from '@mui/material'
+import React, { FC } from 'react'
+import { Checkbox, ListItem, Typography } from '@mui/material'
 import { classNames } from '../../lib/classNames/classnames.ts'
 import cls from '../TodoList/style.module.scss'
 import EditButton from '../EditButton'
@@ -18,24 +18,28 @@ import {
 
 const Todo:FC<TodoProps> = ({ todo }) => {
   const dispatch = useDispatch()
-  const editTodo = ():PayloadAction<CreatorMode> => {
+  const editTodo = ():void => {
     const responseObj:ToggleResponseProps<ITodo> = {
       'mode': CreatorMode.EDIT_MODE,
       todo,
     }
-    return dispatch(toggleMode(responseObj))
+    dispatch(toggleMode(responseObj))
   }
 
   const toggleComplete = ():PayloadAction<ITodo> => {
     return dispatch(toggleCompleteTodo(todo))
   }
 
-  const onDelete = ():PayloadAction<ITodo> => {
-    return dispatch(deleteTodo(todo))
+  const onDelete = ():void => {
+    dispatch(deleteTodo(todo))
   }
 
   return (
     <ListItem divider key={todo.id}>
+      <Checkbox
+        onClick={toggleComplete}
+        checked={todo.completed}
+      />
       <Typography
         onClick={toggleComplete}
         className={classNames(cls.text,
