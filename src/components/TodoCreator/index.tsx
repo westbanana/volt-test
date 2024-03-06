@@ -49,14 +49,14 @@ const TodoCreator:FC = () => {
 
   useEffect(() => {
     if (currentMode === CreatorMode.EDIT_MODE) {
-      setTodoValue(currentTodo.title)
+      setTodoValue(currentTodo!.title)
     }
   }, [currentMode])
 
   const onEdit = ():void => {
     const editedTodo:EditTodoProps = {
       'title': todoValue,
-      'id': currentTodo.id,
+      'id': currentTodo!.id,
     }
     const togleResponse:ToggleResponseProps<ITodo> = {
       'todo': undefined,
@@ -68,7 +68,8 @@ const TodoCreator:FC = () => {
   }
 
   const label =
-    currentMode === CreatorMode.EDIT_MODE ? CreatorLabel.EDIT : CreatorLabel.CREATE
+    currentMode ===
+    CreatorMode.EDIT_MODE ? CreatorLabel.EDIT : CreatorLabel.CREATE
 
   const showHint = !TodoValidation && todoValue.length > 0
 
