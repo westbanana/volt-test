@@ -1,9 +1,10 @@
-export type Todo = {
-  id: number
-  title: string
-  completed: boolean
-}
+import { ITodo } from '../../Todo/todo.type.ts'
 
 export type TodoListState = {
-  list: Todo[]
+  list: ITodo[]
+}
+
+export type EditTodoProps = {
+  id: string | number
+  title: string
 }

@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
-// eslint-disable-next-line max-len
-import todoListReducer from '../components/TodoList/model/slices/todo-list-slice.ts'
+import todoListReducer
+  from '../components/TodoList/model/slices/todo-list-slice.ts'
+import todoCreatorReducer
+  from '../components/TodoCreator/model/slice/todo-creator-slice.ts'
 
 export const store = configureStore({
   'reducer': {
     'todoList': todoListReducer,
+    'todoCreator': todoCreatorReducer,
   },
 })
 
