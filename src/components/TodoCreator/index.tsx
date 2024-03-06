@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material'
+import { Button, TextField, Typography } from '@mui/material'
 import React, { FC, useEffect, useState } from 'react'
 import cls from './style.module.scss'
 import { addTodo, editTodo } from '../TodoList/model/slices/todo-list-slice.ts'
@@ -13,10 +13,14 @@ import { getMode } from './model/selectors/get-mode.ts'
 import { getEditTodo } from './model/selectors/get-edit-todo.ts'
 import { EditTodoProps } from '../TodoList/model/todo-list.type.ts'
 import { toggleMode } from './model/slice/todo-creator-slice.ts'
+import { getTodos } from '../TodoList/model/selectors/get-todos.ts'
+import { toast } from 'react-hot-toast'
+import { classNames } from '../../lib/classNames/classnames.ts'
 
 const TodoCreator:FC = () => {
   const dispatch = useDispatch()
   const currentMode = useSelector(getMode)
+  const todoList = useSelector(getTodos)
   const currentTodo = useSelector(getEditTodo)
   const [todoValue, setTodoValue] = useState<string>('')
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>):void => {
@@ -33,9 +37,16 @@ const TodoCreator:FC = () => {
       'title': todoValue,
       'completed': false,
     }
-    dispatch(addTodo(todo))
-    setTodoValue('')
+    if (todoList.some((el) => el.title === todo.title)) {
+      toast.error('Todo already exists')
+    } else {
+      dispatch(addTodo(todo))
+    }
   }
+
+  useEffect(() => {
+    setTodoValue('')
+  }, [todoList])
 
   useEffect(() => {
     if (currentMode === CreatorMode.EDIT_MODE) {
@@ -60,38 +71,50 @@ const TodoCreator:FC = () => {
   const label =
     currentMode === CreatorMode.EDIT_MODE ? CreatorLabel.EDIT : CreatorLabel.CREATE
 
+  const showHint = !TodoValidation && todoValue.length > 0
+
   return (
     <div className={cls.creatorContainer}>
-      <TextField
-        variant="outlined"
-        label={label}
-        onChange={onChangeHandler}
-        className={cls.input}
-        value={todoValue}
-      />
-      {currentMode === CreatorMode.EDIT_MODE &&
-        <Button
-          size="large"
-          color="primary"
-          variant={AddTaskVariant}
-          className={cls.addButton}
-          onClick={onEdit}
-          disabled={!todoValue || !TodoValidation}
-        >
-          {'EDIT TODO'}
-        </Button>
-      }
-      {currentMode === CreatorMode.CREATE_MODE &&
-        <Button
-          size="large"
-          color="primary"
-          variant={AddTaskVariant}
-          className={cls.addButton}
-          onClick={createTodo}
-          disabled={!todoValue || !TodoValidation}
-        >
-          {'ADD TODO'}
-        </Button>
+      <div className={cls.inputContainer}>
+        <TextField
+          variant="outlined"
+          error={showHint}
+          label={label}
+          onChange={onChangeHandler}
+          className={cls.input}
+          value={todoValue}
+        />
+        {currentMode === CreatorMode.EDIT_MODE &&
+            <Button
+              size="large"
+              color="primary"
+              variant={AddTaskVariant}
+              className={cls.addButton}
+              onClick={onEdit}
+              disabled={!todoValue || !TodoValidation}
+            >
+              {'EDIT TODO'}
+            </Button>
+        }
+        {currentMode === CreatorMode.CREATE_MODE &&
+            <Button
+              size="large"
+              color="primary"
+              variant={AddTaskVariant}
+              className={cls.addButton}
+              onClick={createTodo}
+              disabled={!todoValue || !TodoValidation}
+            >
+              {'ADD TODO'}
+            </Button>
+        }
+      </div>
+      {showHint &&
+        <div className={cls.hintValidateContainer}>
+          <Typography className={cls.hint}>
+            *Todo must be at least 10 characters
+          </Typography>
+        </div>
       }
     </div>
   )

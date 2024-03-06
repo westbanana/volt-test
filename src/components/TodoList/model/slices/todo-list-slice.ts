@@ -5,6 +5,7 @@ import { ITodo } from '../../../Todo/todo.type.ts'
 
 const initialState: TodoListState = {
   'list': [],
+  'error': '',
 }
 
 export const todoListSlice = createSlice({
@@ -12,7 +13,12 @@ export const todoListSlice = createSlice({
   initialState,
   'reducers': {
     'addTodo': (state, action: PayloadAction<ITodo>) => {
-      state.list.push(action.payload)
+      if (state.list.some((todo) => todo.title === action.payload.title)) {
+        state.error = 'Todo already exists'
+      } else {
+        state.list.push(action.payload)
+        state.error = ''
+      }
     },
     'deleteTodo': (state, action: PayloadAction<ITodo>) => {
       state.list = state.list.filter((todo) => todo.id !== action.payload.id)

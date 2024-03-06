@@ -1,11 +1,44 @@
 .creatorContainer {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    position: relative;
+    align-items: stretch;
+}
+
+.inputContainer {
+    display: flex;
     flex-direction: row;
     gap: 10px;
     align-items: center;
     justify-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
+    position: relative;
+}
+
+.hintValidateContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.hint {
+    color: red;
+    font-size: 0.5rem;
+    animation: show 0.3s ease-in-out;
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .input {

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Checkbox, ListItem, Typography } from '@mui/material'
 import { classNames } from '../../lib/classNames/classnames.ts'
 import cls from '../TodoList/style.module.scss'
