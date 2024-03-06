@@ -5,4 +5,7 @@ module.exports = {
     "@wemake-services/typescript/recommended",
     "@wemake-services/javascript",
   ],
+  rules: {
+    'max-len': ["error", { "code": 120 }]
+  }
 };

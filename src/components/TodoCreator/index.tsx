@@ -67,9 +67,7 @@ const TodoCreator:FC = () => {
     setTodoValue('')
   }
 
-  const label =
-    currentMode ===
-    CreatorMode.EDIT_MODE ? CreatorLabel.EDIT : CreatorLabel.CREATE
+  const label = currentMode === CreatorMode.EDIT_MODE ? CreatorLabel.EDIT : CreatorLabel.CREATE
 
   const showHint = !TodoValidation && todoValue.length > 0
 

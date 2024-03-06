@@ -4,7 +4,8 @@ import { EditTodoProps, TodoListState } from '../todo-list.type.ts'
 import { ITodo } from '../../../Todo/todo.type.ts'
 
 const initialState: TodoListState = {
-  'list': [],
+  'list':
+    localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')!) : [],
   'error': '',
 }
 
