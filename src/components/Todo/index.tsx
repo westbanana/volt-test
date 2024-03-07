@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Checkbox, ListItem, Typography } from '@mui/material'
+import { Checkbox, ListItem, ListItemText, Typography } from '@mui/material'
 import { classNames } from '../../lib/classNames/classnames.ts'
 import cls from '../TodoList/style.module.scss'
 import EditButton from '../EditButton'
@@ -40,16 +40,20 @@ const Todo:FC<TodoProps> = ({ todo }) => {
         onClick={toggleComplete}
         checked={todo.completed}
       />
-      <Typography
-        noWrap
-        onClick={toggleComplete}
-        className={classNames(cls.text,
-          { [cls.completed]: todo.completed },
-          [])}
-        key={todo.id}
-      >
-        {todo.title}
-      </Typography>
+      <ListItemText
+        primary={
+          <Typography
+            variant="body1"
+            onClick={toggleComplete}
+            className={classNames(cls.text,
+              { [cls.completed]: todo.completed },
+              [])}
+            key={todo.id}
+          >
+            {todo.title}
+          </Typography>
+        }
+      />
       <EditButton onClick={editTodo} />
       <DeleteButton onClick={onDelete}/>
     </ListItem>

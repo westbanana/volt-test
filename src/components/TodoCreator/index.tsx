@@ -23,7 +23,11 @@ const TodoCreator:FC = () => {
   const currentTodo = useSelector(getEditTodo)
   const [todoValue, setTodoValue] = useState<string>('')
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>):void => {
-    return setTodoValue(event.target.value)
+    if (event.target.value.length <= 100) {
+      setTodoValue(event.target.value)
+    } else {
+      setTodoValue(event.target.value.slice(0, 100))
+    }
   }
 
   const AddTaskVariant = todoValue ? 'contained' : 'outlined'
