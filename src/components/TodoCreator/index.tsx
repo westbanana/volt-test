@@ -66,6 +66,14 @@ const TodoCreator:FC = () => {
     dispatch(toggleMode(togleResponse))
     setTodoValue('')
   }
+  const onCancel = ():void => {
+    const togleResponse:ToggleResponseProps<ITodo> = {
+      'todo': undefined,
+      'mode': CreatorMode.CREATE_MODE,
+    }
+    dispatch(toggleMode(togleResponse))
+    setTodoValue('')
+  }
 
   const label = currentMode === CreatorMode.EDIT_MODE ? CreatorLabel.EDIT : CreatorLabel.CREATE
 
@@ -83,16 +91,27 @@ const TodoCreator:FC = () => {
           value={todoValue}
         />
         {currentMode === CreatorMode.EDIT_MODE &&
-            <Button
-              size="large"
-              color="primary"
-              variant={AddTaskVariant}
-              className={cls.addButton}
-              onClick={onEdit}
-              disabled={!todoValue || !TodoValidation}
-            >
-              {'EDIT TODO'}
-            </Button>
+            <div className={cls.buttonsWrapper}>
+              <Button
+                size="large"
+                color="primary"
+                variant={AddTaskVariant}
+                className={cls.addButton}
+                onClick={onEdit}
+                disabled={!todoValue || !TodoValidation}
+              >
+                {'EDIT TODO'}
+              </Button>
+              <Button
+                size="large"
+                color="error"
+                variant={AddTaskVariant}
+                className={cls.addButton}
+                onClick={onCancel}
+              >
+                {'CANCEL'}
+              </Button>
+            </div>
         }
         {currentMode === CreatorMode.CREATE_MODE &&
             <Button

@@ -7,6 +7,12 @@
     align-items: stretch;
 }
 
+.buttonsWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
 .inputContainer {
     display: flex;
     flex-direction: row;

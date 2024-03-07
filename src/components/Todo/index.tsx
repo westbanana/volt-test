@@ -41,6 +41,7 @@ const Todo:FC<TodoProps> = ({ todo }) => {
         checked={todo.completed}
       />
       <Typography
+        noWrap
         onClick={toggleComplete}
         className={classNames(cls.text,
           { [cls.completed]: todo.completed },
