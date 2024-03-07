@@ -51,7 +51,7 @@ const TodoCreator:FC = () => {
     if (currentMode === CreatorMode.EDIT_MODE) {
       setTodoValue(currentTodo!.title)
     }
-  }, [currentMode])
+  }, [currentMode, currentTodo])
 
   const onEdit = ():void => {
     const editedTodo:EditTodoProps = {
